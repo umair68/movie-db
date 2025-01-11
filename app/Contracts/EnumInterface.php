@@ -6,8 +6,6 @@ namespace App\Contracts;
 
 interface EnumInterface
 {
-    public function label(): string;
-
     /**
      * Return an array of values for the enum.
      *
@@ -28,4 +26,5 @@ interface EnumInterface
      * @return array<string|int, string> Key-value pair of enum values and labels
      */
     public static function options(): array;
+    public function label(): string;
 }

@@ -7,11 +7,11 @@ namespace App\Services\TMDB\Repository;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 
-class AbstractRepository
+final class AbstractRepository
 {
-    protected string $apiUrl = 'https://api.themoviedb.org/3/';
-    protected string $apiKey;
-    protected string $apiLanguage;
+    private string $apiUrl = 'https://api.themoviedb.org/3/';
+    private string $apiKey;
+    private string $apiLanguage;
 
     public function __construct()
     {
@@ -24,8 +24,8 @@ class AbstractRepository
      *
      * @param string $endpoint
      * @param array<string, int> $parameters
-     * @return array<string, mixed>
      * @throws ConnectionException
+     * @return array<string, mixed>
      */
     public function request(string $endpoint, array $parameters = []): array
     {
@@ -33,7 +33,7 @@ class AbstractRepository
 
         $response = Http::acceptJson()
             ->withQueryParameters($parameters)
-            ->get($url,[
+            ->get($url, [
                 'api_key' => $this->apiKey,
                 'language' => $this->apiLanguage,
                 'append_to_response' => 'videos,images,credits,external_ids,keywords,recommendations,alternative_titles'

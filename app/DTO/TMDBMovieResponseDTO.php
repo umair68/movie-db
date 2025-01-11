@@ -6,7 +6,7 @@ namespace App\DTO;
 
 use Illuminate\Support\Collection;
 
-class TMDBMovieResponseDTO
+final class TMDBMovieResponseDTO
 {
     public function __construct(
         public bool       $adult,
@@ -38,8 +38,7 @@ class TMDBMovieResponseDTO
         public bool       $video,
         public float      $vote_average,
         public int        $vote_count
-    )
-    {
+    ) {
     }
 
     public static function fromArray(array $data): self

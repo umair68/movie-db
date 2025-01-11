@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\TMDB\Repository;
 
 /**
  * @see https://developers.themoviedb.org/3/movies
  */
-class MovieRepository extends AbstractRepository
+final class MovieRepository extends AbstractRepository
 {
     /**
      * @see https://developers.themoviedb.org/3/movies/get-movie-details

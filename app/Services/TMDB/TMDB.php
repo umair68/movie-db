@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\TMDB;
 
 use App\DTO\TMDBMovieResponseDTO;
 use App\Services\TMDB\Repository\AbstractRepository;
 use App\Services\TMDB\Repository\MovieRepository;
 
-class TMDB extends AbstractRepository
+final class TMDB extends AbstractRepository
 {
     /**
      * Get the MovieRepository.
@@ -27,6 +29,5 @@ class TMDB extends AbstractRepository
         );
 
     }
-
 
 }

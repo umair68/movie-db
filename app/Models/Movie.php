@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Movie extends Model
+final class Movie extends Model
 {
     /** @use HasFactory<\Database\Factories\MovieFactory> */
     use HasFactory;
