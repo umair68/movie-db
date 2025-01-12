@@ -53,4 +53,5 @@ jobs:
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
+          TMDB_API_KEY: 1234567894
         run: php artisan test
