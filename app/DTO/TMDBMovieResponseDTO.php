@@ -4,41 +4,43 @@ declare(strict_types=1);
 
 namespace App\DTO;
 
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
 final class TMDBMovieResponseDTO
 {
     public function __construct(
-        public bool       $adult,
-        public string     $backdrop_path,
-        public ?array    $belongs_to_collection,
-        public int        $budget,
+        public bool          $adult,
+        public string        $backdrop_path,
+        public ?array        $belongs_to_collection,
+        public int           $budget,
         /** @var Collection<int, array<string, mixed>> */
-        public Collection $genres,
-        public string     $homepage,
-        public int        $id,
-        public string     $imdb_id,
-        public string     $original_language,
-        public string     $original_title,
-        public string     $overview,
-        public float      $popularity,
-        public string     $poster_path,
+        public Collection    $genres,
+        public string        $homepage,
+        public int           $id,
+        public string        $imdb_id,
+        public string        $original_language,
+        public string        $original_title,
+        public string        $overview,
+        public float         $popularity,
+        public string        $poster_path,
         /** @var Collection<int, array<string, mixed>> */
-        public Collection $production_companies,
+        public Collection    $production_companies,
         /** @var Collection<int, array<string, mixed>> */
-        public Collection $production_countries,
-        public string     $release_date,
-        public int        $revenue,
-        public int        $runtime,
+        public Collection    $production_countries,
+        public ?Carbon $release_date,
+        public int           $revenue,
+        public int           $runtime,
         /** @var Collection<int, array<string, mixed>> */
-        public Collection $spoken_languages,
-        public string     $status,
-        public string     $tagline,
-        public string     $title,
-        public bool       $video,
-        public float      $vote_average,
-        public int        $vote_count
-    ) {
+        public Collection    $spoken_languages,
+        public string        $status,
+        public string        $tagline,
+        public string        $title,
+        public bool          $video,
+        public float         $vote_average,
+        public int           $vote_count
+    )
+    {
     }
 
     public static function fromArray(array $data): self
@@ -59,7 +61,7 @@ final class TMDBMovieResponseDTO
             poster_path: $data['poster_path'] ?? '',
             production_companies: collect($data['production_companies'] ?? []),
             production_countries: collect($data['production_countries'] ?? []),
-            release_date: $data['release_date'] ?? '',
+            release_date: Carbon::createFromDate($data['release_date']) ?? null,
             revenue: $data['revenue'] ?? 0,
             runtime: $data['runtime'] ?? 0,
             spoken_languages: collect($data['spoken_languages'] ?? []),

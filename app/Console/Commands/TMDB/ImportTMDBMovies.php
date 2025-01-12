@@ -79,7 +79,7 @@ final class ImportTMDBMovies extends Command
 
                 DB::transaction(function () use ($movieData): void {
 
-                    $year = date('Y', strtotime($movieData->release_date));
+
 
                     $status = $this->mapStatus($movieData->status);
 
@@ -91,7 +91,7 @@ final class ImportTMDBMovies extends Command
                             'imdb_id' => $movieData->imdb_id,
                             'overview' => $movieData->overview,
                             'release_date' => $movieData->release_date,
-                            'year' => $year,
+                            'year' =>   $movieData->release_date?->format('Y'),
                             'poster_path' => $movieData->poster_path,
                             'backdrop_path' => $movieData->backdrop_path,
                             'runtime' => $movieData->runtime,
