@@ -7,16 +7,24 @@ namespace App\Services\TMDB\Repository;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 
-final class AbstractRepository
+abstract class AbstractRepository
 {
     private string $apiUrl = 'https://api.themoviedb.org/3/';
     private string $apiKey;
     private string $apiLanguage;
 
+    /**
+     * @throws ConnectionException
+     */
     public function __construct()
     {
+
+        if (config('services.tmdb.api_key') === null) {
+            throw new ConnectionException('The TMDB API key is not configured correctly.');
+        }
+
         $this->apiKey = config('services.tmdb.api_key');
-        $this->apiLanguage = config('app.locale', 'en-US');
+        $this->apiLanguage = config('services.tmdb.api_locale');
     }
 
     /**
@@ -24,8 +32,8 @@ final class AbstractRepository
      *
      * @param string $endpoint
      * @param array<string, int> $parameters
-     * @throws ConnectionException
      * @return array<string, mixed>
+     * @throws ConnectionException
      */
     public function request(string $endpoint, array $parameters = []): array
     {

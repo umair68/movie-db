@@ -11,7 +11,7 @@ final class TMDBMovieResponseDTO
     public function __construct(
         public bool       $adult,
         public string     $backdrop_path,
-        public ?string    $belongs_to_collection,
+        public ?array    $belongs_to_collection,
         public int        $budget,
         /** @var Collection<int, array<string, mixed>> */
         public Collection $genres,
