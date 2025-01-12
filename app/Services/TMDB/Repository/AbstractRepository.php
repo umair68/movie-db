@@ -19,9 +19,6 @@ abstract class AbstractRepository
     public function __construct()
     {
 
-        if (null === config('services.tmdb.api_key')) {
-            throw new ConnectionException('The TMDB API key is not configured correctly.');
-        }
 
         $this->apiKey = config('services.tmdb.api_key');
         $this->apiLanguage = config('services.tmdb.api_locale');
@@ -32,8 +29,8 @@ abstract class AbstractRepository
      *
      * @param string $endpoint
      * @param array<string, int> $parameters
-     * @throws ConnectionException
      * @return array<string, mixed>
+     * @throws ConnectionException
      */
     public function request(string $endpoint, array $parameters = []): array
     {
@@ -42,11 +39,23 @@ abstract class AbstractRepository
         $response = Http::acceptJson()
             ->withQueryParameters($parameters)
             ->get($url, [
-                'api_key' => $this->apiKey,
+                'api_key' => $this->getApiKey(),
                 'language' => $this->apiLanguage,
                 'append_to_response' => 'videos,images,credits,external_ids,keywords,recommendations,alternative_titles'
             ]);
 
         return $response->json();
+    }
+
+    /**
+     * @throws ConnectionException
+     */
+    private function getApiKey(): string
+    {
+        if (!$this->apiKey) {
+            throw new ConnectionException('The TMDB API key is not configured correctly.');
+        }
+
+        return $this->apiKey;
     }
 }
