@@ -79,8 +79,6 @@ final class ImportTMDBMovies extends Command
 
                 DB::transaction(function () use ($movieData): void {
 
-
-
                     $status = $this->mapStatus($movieData->status);
 
                     $movie = Movie::query()->updateOrCreate(

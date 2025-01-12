@@ -39,8 +39,7 @@ final class TMDBMovieResponseDTO
         public bool          $video,
         public float         $vote_average,
         public int           $vote_count
-    )
-    {
+    ) {
     }
 
     public static function fromArray(array $data): self
