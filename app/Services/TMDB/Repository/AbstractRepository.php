@@ -20,7 +20,6 @@ abstract class AbstractRepository
     public function __construct()
     {
 
-
         $this->apiKey = config('services.tmdb.api_key');
         $this->apiLanguage = config('services.tmdb.api_locale');
     }
@@ -30,9 +29,9 @@ abstract class AbstractRepository
      *
      * @param string $endpoint
      * @param array<string, int> $parameters
-     * @return array<string, mixed>
      * @throws ConnectionException
      * @throws Throwable
+     * @return array<string, mixed>
      */
     public function request(string $endpoint, array $parameters = []): array
     {
@@ -54,7 +53,7 @@ abstract class AbstractRepository
      */
     private function getApiKey(): string
     {
-        throw_if($this->apiKey === null,'The TMDB API key is required.' );
+        throw_if(null === $this->apiKey, 'The TMDB API key is required.');
 
         return $this->apiKey;
     }
