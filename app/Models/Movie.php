@@ -34,6 +34,11 @@ final class Movie extends Model
         'status',
     ];
 
+    public function addedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'added_by', 'id');
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -54,11 +59,6 @@ final class Movie extends Model
             'status' => MovieReleaseStatus::class,
 
         ];
-    }
-
-    public function addedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'added_by', 'id');
     }
 
 }

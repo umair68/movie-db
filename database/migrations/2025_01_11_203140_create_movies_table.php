@@ -31,7 +31,7 @@ return new class () extends Migration {
             $table->bigInteger('budget')->nullable();
             $table->bigInteger('revenue')->nullable();
             $table->tinyInteger('status');
-            $table->foreignIdFor(User::class,'added_by')->nullable()->index();
+            $table->foreignIdFor(User::class, 'added_by')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
         });

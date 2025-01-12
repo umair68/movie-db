@@ -37,6 +37,11 @@ final class User extends Authenticatable
         'remember_token',
     ];
 
+    public function moviesAdded(): HasMany
+    {
+        return $this->hasMany(Movie::class, 'added_by', 'id');
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -48,10 +53,5 @@ final class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    public function moviesAdded() : HasMany
-    {
-        return $this->hasMany(Movie::class, 'added_by', 'id');
     }
 }

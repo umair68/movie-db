@@ -19,7 +19,7 @@ abstract class AbstractRepository
     public function __construct()
     {
 
-        if (config('services.tmdb.api_key') === null) {
+        if (null === config('services.tmdb.api_key')) {
             throw new ConnectionException('The TMDB API key is not configured correctly.');
         }
 
@@ -32,8 +32,8 @@ abstract class AbstractRepository
      *
      * @param string $endpoint
      * @param array<string, int> $parameters
-     * @return array<string, mixed>
      * @throws ConnectionException
+     * @return array<string, mixed>
      */
     public function request(string $endpoint, array $parameters = []): array
     {

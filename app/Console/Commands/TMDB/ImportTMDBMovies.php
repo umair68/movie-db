@@ -1,16 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands\TMDB;
 
 use App\Enums\MovieReleaseStatus;
 use App\Models\Movie;
 use App\Services\TMDB\TMDB;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
-class ImportTMDBMovies extends Command
+final class ImportTMDBMovies extends Command
 {
     private const array STATUS_MAP = [
         'Rumored' => MovieReleaseStatus::ComingSoon,
@@ -50,7 +53,7 @@ class ImportTMDBMovies extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $start = (int)$this->option('start');
         $end = (int)$this->option('end');
@@ -74,7 +77,7 @@ class ImportTMDBMovies extends Command
             try {
                 $movieData = $this->tmdbService->getMovie($movieId);
 
-                DB::transaction(function () use ($movieData) {
+                DB::transaction(function () use ($movieData): void {
 
                     $year = date('Y', strtotime($movieData->release_date));
 
@@ -101,7 +104,7 @@ class ImportTMDBMovies extends Command
                     );
                 });
 
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 Log::error("Failed to import movie ID {$movieId}: " . $e->getMessage());
                 $this->error("Failed to import movie ID {$movieId}");
             }
