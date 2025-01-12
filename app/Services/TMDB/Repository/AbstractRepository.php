@@ -6,11 +6,12 @@ namespace App\Services\TMDB\Repository;
 
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
+use Throwable;
 
 abstract class AbstractRepository
 {
     private string $apiUrl = 'https://api.themoviedb.org/3/';
-    private string $apiKey;
+    private ?string $apiKey;
     private string $apiLanguage;
 
     /**
@@ -31,6 +32,7 @@ abstract class AbstractRepository
      * @param array<string, int> $parameters
      * @return array<string, mixed>
      * @throws ConnectionException
+     * @throws Throwable
      */
     public function request(string $endpoint, array $parameters = []): array
     {
@@ -48,13 +50,11 @@ abstract class AbstractRepository
     }
 
     /**
-     * @throws ConnectionException
+     * @throws Throwable
      */
     private function getApiKey(): string
     {
-        if (!$this->apiKey) {
-            throw new ConnectionException('The TMDB API key is not configured correctly.');
-        }
+        throw_if($this->apiKey === null,'The TMDB API key is required.' );
 
         return $this->apiKey;
     }
