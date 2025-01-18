@@ -9,8 +9,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Devdojo\Auth\Models\User as DevdojoAuthUser;
 
-final class User extends Authenticatable
+final class User extends DevdojoAuthUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
