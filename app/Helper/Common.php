@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Helper;
 
-class Common
+use InvalidArgumentException;
+
+final class Common
 {
     /**
      * Generate a TMDB media URL using only size (e.g., 'w300', 'h60', 'original').
@@ -16,7 +18,7 @@ class Common
      */
     public static function mediaSize(?string $path, string $size = 'original'): string
     {
-        if (!$path) {
+        if ( ! $path) {
             return '/images/placeholder-poster.jpg';
         }
 
@@ -25,9 +27,8 @@ class Common
             'h60', 'h90', 'original'
         ];
 
-
-        if (!in_array($size, $allowedSizes, true)) {
-            throw new \InvalidArgumentException("Invalid size: {$size}. Allowed sizes are: " . implode(', ', $allowedSizes));
+        if ( ! in_array($size, $allowedSizes, true)) {
+            throw new InvalidArgumentException("Invalid size: {$size}. Allowed sizes are: " . implode(', ', $allowedSizes));
         }
 
         return "https://image.tmdb.org/t/p/{$size}{$path}";
