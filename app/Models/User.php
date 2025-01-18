@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Devdojo\Auth\Models\User as DevdojoAuthUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Devdojo\Auth\Models\User as DevdojoAuthUser;
 
 final class User extends DevdojoAuthUser
 {
